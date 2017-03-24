@@ -1,0 +1,1 @@
+print(['NO','YES'][bool(set('HQ9')&set(input()))])#& = ().intersection()
