@@ -1,30 +1,43 @@
-#include <iostream>
-#include <algorithm>
-#include <regex>
+#include <cstdio>
+#include "malloc.h"
 
-using namespace std;
+int          a = 1;
+static int   b = 2;
+extern int   c = 3;
+volatile int d = 4;
+const int    E = 5;
 
-class Base {
-    virtual void method() {std::cout << "from Base" << std::endl;}
-public:
-    virtual ~Base() {method();}
-    void baseMethod() {method();}
-};
+int foo( int a, const int * p, int * const g, int &h )
+{
+    static int s = 6;
 
-class A : public Base {
-    void method() {std::cout << "from A" << std::endl;}
-public:
-    ~A() {method();}
-};
+    class CL
+    {
+        //static int x;
+        const int y;
 
-void f(int arr[]){
-    sort(arr, arr + 5);
+    protected:
+        int z;
+
+    public:
+        CL( int v ):y(v){}
+
+    //private:
+        CL(void):y(0){}
+    };
+
+    CL * i = new CL(10);
+    CL * j = new CL[10];
+    CL * k = ( CL * ) malloc ( 10 * sizeof( CL ) );
+
+    CL m(20);
+
+    ++s;
+    printf("%d",s);
 }
 
-int main(void) {
-
-    string s = "(2, 2) (3, 3)";
-    string t = regex_replace(s, regex("[\\(\\),]"), " ");
-    cout << t;
-    return 0;
+int main(){
+    int num = 12;
+    foo(11, &num, &num, num);
+    foo(11, &num, &num, num);
 }
